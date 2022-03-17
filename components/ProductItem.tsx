@@ -2,7 +2,7 @@ import { memo, useState } from 'react';
 import { AddProductToWishlistProps } from './AddProductToWishlist';
 //import { AddProductToWishlist } from './AddProductToWishlist';
 import dynamic from 'next/dynamic'; // se for uma aplicação só react sem SSR usa o lazy importado do react
-
+import lodash from 'lodash';
 const AddProductToWishlist = dynamic<AddProductToWishlistProps>(() => {
     return import('./AddProductToWishlist').then(nod => nod.AddProductToWishlist)
 }, {
@@ -37,5 +37,5 @@ function ProductItemComponent({product, onAddToWishList}: ProductItemProps){
 }
 
 export const ProductItem = memo(ProductItemComponent, (prevProps, nextProps) => {
-    return Object.is(prevProps.product, nextProps.product);
+    return lodash.isEqual(prevProps.product, nextProps.product);
 });
